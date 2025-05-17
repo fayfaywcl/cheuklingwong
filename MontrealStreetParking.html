@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MontrealStreetParking - Cheuk Ling Wong Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #555;
+            --accent-color: #0056b3;
+            --light-color: #f8f9fa;
+            --transition-speed: 0.3s;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            position: relative;
+            transition: var(--transition-speed);
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: var(--transition-speed);
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* Project Header */
+        .project-header {
+            height: 50vh;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            margin-top: 76px;
+        }
+        
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+            z-index: 1;
+        }
+        
+        .project-title-container {
+            position: relative;
+            z-index: 2;
+            padding: 2rem 5%;
+            width: 100%;
+        }
+        
+        .project-title {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-category {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+        
+        /* Project Content */
+        .project-content {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-details {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .project-meta {
+            background-color: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .meta-item {
+            margin-bottom: 1rem;
+        }
+        
+        .meta-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .project-description {
+            line-height: 1.8;
+        }
+        
+        /* Image Gallery Layout 1 - Album Series */
+        .image-gallery-album {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform var(--transition-speed);
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Image and Text Pattern Layout */
+        .image-text-pattern {
+            margin: 4rem 0;
+        }
+        
+        .pattern-item {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .pattern-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .pattern-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pattern-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .pattern-content {
+            flex: 1;
+        }
+        
+        /* Video Showcase */
+        .video-showcase {
+            margin: 3rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+        
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Action Buttons */
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .action-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color var(--transition-speed);
+        }
+        
+        .action-button:hover {
+            background-color: #004494;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .secondary-button:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* More Projects Section */
+        .more-projects {
+            padding: 4rem 5%;
+            background-color: var(--light-color);
+        }
+        
+        .more-projects-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .more-projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform var(--transition-speed);
+            height: 250px;
+            cursor: pointer;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-speed);
+        }
+        
+        .project-card:hover .project-img {
+            transform: scale(1.1);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color var(--transition-speed);
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+                z-index: 1001;
+            }
+            
+            nav ul {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 70%;
+                transition: right 0.5s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 1.5rem 0;
+            }
+            
+            .project-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .pattern-item, .pattern-item:nth-child(even) {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo"><a href="index.html">Cheuk Ling Wong</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <!-- Project Header -->
+    <section class="project-header" style="background-image: url('MSP_main.png');">
+        <div class="project-title-container">
+            <h1 class="project-title">MontrealStreetParking.html</h1>
+            <p class="project-category">Web Development | Hackathon Project</p>
+        </div>
+    </section>
+
+    <!-- Project Content -->
+    <section class="project-content">
+        <div class="project-details">
+            <div class="project-meta">
+                
+                <div class="meta-item">
+                    <h4 class="meta-title">Timeline</h4>
+                    <p>2 days (Jan 2024)</p>
+                </div>
+                
+                <div class="meta-item">
+                    <h4 class="meta-title">Technologies</h4>
+                    <p>HTML5, CSS3, JavaScript</p>
+                    <p>Leaflet.js - for interactive map integration</p>
+                    <p>Open Data (Quebec Government open-source datasets)</p>
+                </div>
+            </div>
+            <div class="project-description">
+                <h2>Project Overview</h2>
+                <p>The Montreal Street Parking Map was developed to solve the complex and often confusing Montreal parking signs.</p>
+                <p>Drivers frequently struggle to decode parking regulations while on the go. This map-based website allows users to filter and decode parking signs by showing them the symbol information and real-time locations.</p>
+                <p>📍 Note: For demo purposes, the map is limited to a smaller area due to data size constraints.</p>
+                <div class="project-actions">
+                    <a href="https://fayfaywcl.github.io/MontrealstreetParking/" class="action-button">Visit Website</a>
+                    <a href="https://github.com/fayfaywcl/MontrealstreetParking" class="action-button secondary-button">View GitHub Repo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Gallery - Album Series -->
+        <h1 style="font-size: 45px ;">Design Process</h1>
+        
+    
+
+        <!-- Image and Text Pattern Layout -->
+        <div class="image-text-pattern">
+            
+
+            
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="M_ParkingSign(in wiki).jpg" alt="M_ParkingSign(in wiki)" >
+                </div>
+                <div class="pattern-content">
+                    <h2 style="text-align: left;">Inspiration</h2>
+                    <p>The inspiration came from Montreal's complex parking signs, which often require drivers to stop and decipher multiple rules. We sought to streamline this process to help the driver save time and improve parking efficiency.</p>
+
+                </div>
+            </div>
+            <h2>Key Features</h2>
+            <br>
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="Map-Based Interface.png" alt="Map-Based Interface">
+                </div>
+                <div class="pattern-content">
+                    <h3>Map-Based Interface</h3>
+                    <p>The map is built with Leaflet.js. Users can zoom in and out to see available parking data.</p>
+                    <p>The search algorithm was optimized to prioritize relevant results while still exposing users to new destinations they might not have considered.</p>
+                </div>
+            </div>
+            
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="Open Data Integration.png" alt="Open Data Integration">
+                </div>
+                <div class="pattern-content">
+                    <h3>Open Data Integration</h3>
+                    <p>The map uses Open Data from the Quebec government to display street parking conditions across Montreal.</p>
+                    <p>This ensures the data is accurate and reliable.</p>
+                </div>
+            </div>
+            
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="Interactive Symbol System.png" alt="Interactive Symbol System">
+                </div>
+                <div class="pattern-content">
+                    <h3>Interactive Symbol System</h3>
+                    <p>Symbols on the map represent different parking sign conditions (e.g., restricted times, special rules). When users apply filters, the symbols update to match the selected criteria.</p>
+                    <p>The map also allows users to click on any symbol to get a detailed description of the parking sign rules.</p>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="Real-Time Location Integration.png" alt="Real-Time Location Integration">
+                </div>
+                <div class="pattern-content">
+                    <h3>Real-Time Location Integration</h3>
+                    <p>The map can pinpoint the user's location.</p>
+                    <p>This feature is for drivers who are already on the road and need to quickly find parking.</p>
+                </div>
+            </div>
+
+            <div class="pattern-item">
+                <div class="pattern-image">
+                    <img src="MSP_Filters.png" alt="MSP_Filters">
+                </div>
+                <div class="pattern-content">
+                    <h3>Filters</h3>
+                    <p>Filters help users customize the map view, enabling them to select specific parking conditions (e.g., weekday restrictions, overnight parking rules).</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <!-- Video Showcase -->
+        <h1>See It In Action</h1>
+        <p>Watch this brief walkthrough of the website's main features and functionality:</p>
+        
+        <div class="video-showcase">
+            <div class="video-container">
+                <video class="video-placeholder" controls>
+                    <source src="VideoMSP.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        
+
+    <!-- More Projects Section -->
+    <section class="more-projects">
+        <h2 class="more-projects-title">More Projects</h2>
+        <div class="more-projects-grid">
+
+            
+
+            <!-- TravelShareWebsite -->
+            <a href="TravelShareWebsite.html" class="project-card">
+                <img src="TravelShare Website_MainPage.png" alt="E-commerce Platform" class="project-img">
+                <div class="project-overlay">
+                    <h3 class="project-title">Travel Website</h3>
+                    <p class="project-category">Web Development</p>
+                </div>
+            </a>
+            
+
+
+            <!-- ColourP -->
+            <a href="ColourP.html" class="project-card">
+                <img src="ColourP_main.png" alt="ColourP" class="project-img">
+                <div class="project-overlay">
+                    <h3 class="project-title">Color & Language</h3>
+                    <p class="project-category">Design (haiku & drawing)</p>
+                </div>
+            </a>
+            
+            <!-- Mental Health Awareness -->
+            <a href="Mental Health Awareness.html" class="project-card">
+                <img src="Magazine Cover6  (5).jpg" alt="Music App" class="project-img">
+                <div class="project-overlay">
+                    <h3 class="project-title">Mental Health Awareness</h3>
+                    <p class="project-category">Magazine Covers</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <!-- <div class="social-links">
+            <a href="#" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+            </a>
+            <a href="#" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <a href="#" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+            </a>
+            <a href="#" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+            </a>
+        </div> -->
+        <p>&copy; 2025 CHEUKLINGWONG. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('nav ul');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('toggle');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (navLinks.classList.contains('active') && !isClickInsideNav && !isClickOnHamburger) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('toggle');
+            }
+        });
+        
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
