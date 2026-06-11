@@ -15,11 +15,14 @@
     
     <style>
         :root {
-            --primary-color: #333;
-            --secondary-color: #555;
-            --accent-color: #0056b3;
-            --light-color: #f8f9fa;
-            --transition-speed: 0.3s;
+            --primary-color: #1f2428;
+            --secondary-color: #5f6872;
+            --accent-color: #0b6f91;
+            --accent-warm: #d86f45;
+            --accent-green: #607d5e;
+            --light-color: #f6f8f8;
+            --line-color: rgba(31, 36, 40, 0.12);
+            --transition-speed: 0.35s;
         }
         
         * {
@@ -33,6 +36,7 @@
             line-height: 1.6;
             color: var(--primary-color);
             overflow-x: hidden;
+            background: #ffffff;
         }
         
         h1, h2, h3, h4 {
@@ -57,12 +61,15 @@
             align-items: center;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(16px);
+            transition: padding var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
         }
         
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary-color);
+            animation: slideInTop 0.8s ease both;
         }
         
         nav ul {
@@ -97,6 +104,22 @@
         nav ul li a:hover:after {
             width: 100%;
         }
+
+        nav ul li {
+            animation: slideInTop 0.8s ease both;
+        }
+
+        nav ul li:nth-child(1) {
+            animation-delay: 0.08s;
+        }
+
+        nav ul li:nth-child(2) {
+            animation-delay: 0.16s;
+        }
+
+        nav ul li:nth-child(3) {
+            animation-delay: 0.24s;
+        }
         
         /* Hero Section */
         .hero {
@@ -110,6 +133,8 @@
             background-position: center;
             background-size: cover;
             color: white;
+            overflow: hidden;
+            isolation: isolate;
         }
         
         .hero::before {
@@ -119,28 +144,140 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background:
+                linear-gradient(120deg, rgba(8, 13, 18, 0.78), rgba(13, 51, 62, 0.55), rgba(66, 42, 34, 0.54)),
+                rgba(0, 0, 0, 0.35);
             z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.35;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+            background-size: 72px 72px;
+            transform: perspective(900px) rotateX(64deg) translateY(-18%);
+            transform-origin: top;
+            animation: gridDrift 14s linear infinite;
         }
         
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 920px;
             padding: 0 2rem;
         }
         
         .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: clamp(3rem, 8vw, 6.75rem);
+            line-height: 0.95;
+            margin-bottom: 1.25rem;
         }
         
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 680px;
             margin-left: auto;
             margin-right: auto;
+            animation: fadeLift 0.85s ease 0.8s both;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            margin-bottom: 1.15rem;
+            animation: fadeLift 0.75s ease 0.2s both;
+        }
+
+        .hero-kicker::before,
+        .hero-kicker::after {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .designer-title {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .designer-title span {
+            display: block;
+            overflow: hidden;
+            line-height: 1.2;
+        }
+
+        .designer-title span span {
+            display: block;
+            animation: titleReveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .designer-title span:nth-child(2) span {
+            animation-delay: 0.15s;
+        }
+
+        .designer-title span:nth-child(3) span {
+            animation-delay: 0.3s;
+        }
+
+        .title-accent {
+            color: transparent;
+            background: linear-gradient(95deg, #ffffff 10%, #77d5e8 38%, #f0a173 68%, #d8f0b5 92%);
+            background-size: 180% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: titleReveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both, shimmerText 5s ease-in-out 1s infinite;
+        }
+
+        .motion-mark {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: 2;
+            pointer-events: none;
+            animation: rotateSoft 18s linear infinite;
+        }
+
+        .motion-mark::before,
+        .motion-mark::after {
+            content: '';
+            position: absolute;
+            inset: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            transform: rotate(24deg);
+        }
+
+        .motion-mark::after {
+            inset: 54px;
+            border-radius: 50%;
+            transform: none;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .motion-mark.left {
+            left: 8%;
+            top: 22%;
+        }
+
+        .motion-mark.right {
+            right: 9%;
+            bottom: 18%;
+            animation-direction: reverse;
+            animation-duration: 22s;
         }
         
         .scroll-down {
@@ -167,13 +304,17 @@
         
         /* Projects Section */
         .projects {
-            padding: 5rem 5%;
+            padding: 5.5rem 5%;
+            background:
+                radial-gradient(circle at 12% 8%, rgba(11, 111, 145, 0.07), transparent 30%),
+                radial-gradient(circle at 90% 28%, rgba(216, 111, 69, 0.08), transparent 28%),
+                #ffffff;
         }
         
         .section-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             position: relative;
             padding-bottom: 1rem;
         }
@@ -188,68 +329,259 @@
             height: 3px;
             background-color: var(--accent-color);
         }
+
+        .section-intro {
+            max-width: 720px;
+            margin: 0 auto 3.5rem;
+            text-align: center;
+            color: var(--secondary-color);
+            font-size: 1.04rem;
+        }
+
+        .project-category-section {
+            max-width: 1220px;
+            margin: 0 auto 4.5rem;
+        }
+
+        .project-category-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1.5rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid var(--line-color);
+        }
+
+        .category-heading h3 {
+            font-size: clamp(1.55rem, 3vw, 2.25rem);
+            margin-bottom: 0;
+        }
+
+        .category-heading p {
+            max-width: 460px;
+            color: var(--secondary-color);
+            margin-bottom: 0;
+            text-align: right;
+        }
         
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.35rem;
         }
         
         .project-card {
             position: relative;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform var(--transition-speed);
-            height: 250px;
+            box-shadow: 0 18px 45px rgba(23, 33, 39, 0.12);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            height: 280px;
             cursor: pointer;
+            background: #111;
+            isolation: isolate;
         }
         
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 26px 60px rgba(23, 33, 39, 0.2);
+        }
+
+        .project-card a {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
         
         .project-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform var(--transition-speed);
+            transition: transform 0.65s ease, filter 0.65s ease;
         }
         
         .project-card:hover .project-img {
-            transform: scale(1.1);
+            transform: scale(1.08);
+            filter: saturate(1.08) contrast(1.04);
         }
         
         .project-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(to top, rgba(6, 10, 12, 0.88), rgba(6, 10, 12, 0.22) 56%, rgba(6, 10, 12, 0.05));
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity var(--transition-speed);
-            padding: 1rem;
-            text-align: center;
-        }
-        
-        .project-card:hover .project-overlay {
+            justify-content: flex-end;
+            align-items: flex-start;
             opacity: 1;
+            transition: background var(--transition-speed);
+            padding: 1.35rem;
+            text-align: left;
+        }
+
+        .project-overlay::before {
+            content: '';
+            position: absolute;
+            left: 1.35rem;
+            top: 1.35rem;
+            width: 46px;
+            height: 46px;
+            border-top: 1px solid rgba(255,255,255,0.62);
+            border-left: 1px solid rgba(255,255,255,0.62);
+            opacity: 0;
+            transform: translate(-8px, -8px);
+            transition: opacity var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .project-card:hover .project-overlay::before {
+            opacity: 1;
+            transform: translate(0, 0);
         }
         
         .project-title {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            line-height: 1.15;
+            margin-bottom: 0.45rem;
+            transform: translateY(8px);
+            transition: transform var(--transition-speed);
         }
         
         .project-category {
             font-size: 0.9rem;
-            opacity: 0.8;
+            opacity: 0.86;
+            margin-bottom: 0;
+            transform: translateY(10px);
+            transition: transform var(--transition-speed);
+        }
+
+        .project-card:hover .project-title,
+        .project-card:hover .project-category {
+            transform: translateY(0);
+        }
+
+        .project-badge {
+            display: inline-flex;
+            width: fit-content;
+            margin-bottom: 0.85rem;
+            padding: 0.32rem 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        .concept-visual {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, #10252c 0%, #193a45 38%, #6d4b35 70%, #273525 100%);
+            overflow: hidden;
+        }
+
+        .concept-visual.journal {
+            background:
+                linear-gradient(135deg, #17242a 0%, #244a54 42%, #7a6248 100%);
+        }
+
+        .concept-visual.brain {
+            background:
+                linear-gradient(135deg, #171b22 0%, #30485c 36%, #925f45 72%, #566d55 100%);
+        }
+
+        .journal-lines {
+            position: absolute;
+            left: 13%;
+            right: 13%;
+            top: 24%;
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .journal-lines span {
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.42);
+            transform-origin: left;
+            animation: slidingTextReveal 3.6s ease-in-out infinite;
+        }
+
+        .journal-lines span:nth-child(2) {
+            width: 76%;
+            animation-delay: 0.2s;
+        }
+
+        .journal-lines span:nth-child(3) {
+            width: 58%;
+            animation-delay: 0.4s;
+        }
+
+        .journal-orbit {
+            position: absolute;
+            right: 13%;
+            bottom: 23%;
+            width: 84px;
+            height: 84px;
+            border: 1px solid rgba(255,255,255,0.44);
+            border-radius: 50%;
+            animation: rotateSoft 10s linear infinite;
+        }
+
+        .journal-orbit::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: -8px;
+            left: 42%;
+            border-radius: 50%;
+            background: #f0a173;
+        }
+
+        .dot-field {
+            position: absolute;
+            inset: 18% 12%;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-auto-rows: 1fr;
+            gap: 0.55rem;
+            transform: rotate(-6deg);
+            animation: rotateScale 5s ease-in-out infinite;
+        }
+
+        .dot-field span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.62);
+        }
+
+        .dot-field span:nth-child(4n) {
+            background: #77d5e8;
+        }
+
+        .dot-field span:nth-child(5n) {
+            background: #f0a173;
+        }
+
+        .brain-word {
+            position: absolute;
+            left: 13%;
+            top: 39%;
+            color: rgba(255,255,255,0.9);
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            animation: slidingTextReveal 3.8s ease-in-out infinite;
         }
         
         /* About Section */
@@ -297,11 +629,17 @@
         }
         
         .skill-tag {
-            background-color: rgb(73, 143, 169);
+            background-color: var(--accent-color);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 30px;
             font-size: 0.9rem;
+            transition: transform var(--transition-speed), background-color var(--transition-speed);
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-3px);
+            background-color: var(--accent-warm);
         }
         
         /* Contact Section */
@@ -371,6 +709,10 @@
         .contact-item a:hover {
             color: var(--accent-color);
         }
+
+        .contact-info.reveal {
+            transition-delay: 0.14s;
+        }
         
         /* Footer */
         footer {
@@ -400,6 +742,99 @@
         
         .social-link:hover {
             background-color: var(--accent-color);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition-delay: var(--delay, 0s);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideInTop {
+            from {
+                opacity: 0;
+                transform: translateY(-14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes titleReveal {
+            from {
+                opacity: 0;
+                transform: translateY(105%) rotate(2deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0);
+            }
+        }
+
+        @keyframes fadeLift {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmerText {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes gridDrift {
+            from {
+                background-position: 0 0, 0 0;
+            }
+            to {
+                background-position: 0 72px, 72px 0;
+            }
+        }
+
+        @keyframes rotateSoft {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotateScale {
+            0%, 100% {
+                transform: rotate(-6deg) scale(1);
+            }
+            50% {
+                transform: rotate(4deg) scale(1.07);
+            }
+        }
+
+        @keyframes slidingTextReveal {
+            0% {
+                clip-path: inset(0 100% 0 0);
+                opacity: 0.25;
+            }
+            35%, 75% {
+                clip-path: inset(0 0 0 0);
+                opacity: 1;
+            }
+            100% {
+                clip-path: inset(0 0 0 100%);
+                opacity: 0.25;
+            }
         }
         
         /* Mobile Menu */
@@ -448,6 +883,39 @@
             .hero h1 {
                 font-size: 3rem;
             }
+
+            .motion-mark {
+                display: none;
+            }
+
+            .category-heading {
+                display: block;
+            }
+
+            .category-heading p {
+                margin-top: 0.5rem;
+                text-align: left;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
         }
     </style>
     
@@ -473,9 +941,16 @@
 
     <!-- Hero Section -->
     <section class="hero" style="background-image: url('Front page background.jpeg');">
+        <div class="motion-mark left"></div>
+        <div class="motion-mark right"></div>
         <div class="hero-content">
-            <h1>Hi, I'm Cheuk Ling Wong!</h1>
-            <p style="color:rgb(190, 193, 196);">I'm a passionate developer with a focus on creating interactive and visually appealing web experiences. My work lies at the intersection of technology, creativity, and problem-solving.</p>
+            <h1 class="designer-title" aria-label="Hi, I'm Cheuk Ling Wong">
+                <span><span>Hi, I'm</span></span>
+                <span><span><span>Cheuk Ling</span></span></span>
+                <span><span class="title-accent">Wong</span></span>
+            </h1>
+            
+            <p style="color:rgb(220, 226, 229);">I'm a passionate developer with a focus on creating interactive and visually appealing web experiences. My work lies at the intersection of technology, creativity, and problem-solving. </p>
         </div>
         <div class="scroll-down">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -486,174 +961,209 @@
 
     <!-- Projects Section -->
     <section id="projects" class="projects">
-        <h2 class="section-title">My Projects</h2>
-        <div class="project-grid">
-            <!-- Project 1 -->
-            <div class="project-card">
-                <a href="TravelShareWebsite.html">
-                <img src="TravelShare Website_MainPage.png" alt="Project 1" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Travel Website</h3>
-                    <p class="project-category">Web Development</p>
-                </a>
-                </div>
+        <h2 class="section-title reveal">My Projects</h2>
+        <p class="section-intro reveal">A curated mix of website design, visual communication, 3D exploration, AI systems, and playful interaction. Each category shows the kind of thinking behind the work, from research and process recording to final interface polish.</p>
+
+        <div class="project-category-section reveal">
+            <div class="category-heading">
+                <h3>Website Design</h3>
+                <p>Digital products and interface systems focused on usability, clear flow, and visual storytelling.</p>
             </div>
-            
-            <!-- Project 2 -->
-            <div class="project-card">
-                <a href="MontrealStreetParking.html">
-                <img src="MStreetP.png" alt="Project 2" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Montreal Street Parking Website</h3>
-                    <p class="project-category">Web Development</p>
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <a href="TravelShareWebsite.html">
+                        <img src="TravelShare Website_MainPage.png" alt="Travel Website interface preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Website Design</span>
+                            <h3 class="project-title">Travel Website</h3>
+                            <p class="project-category">Travel discovery, sharing, and planning experience</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-            
-            <!-- Project 3 -->
-            <div class="project-card">
-                <a href="ColourP.html">
-                <img src="ColourP_main.png" alt="Project 3" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Color & Language</h3>
-                    <p class="project-category">Design (haiku & drawing)</p>
+                <div class="project-card reveal">
+                    <a href="MontrealStreetParking.html">
+                        <img src="MStreetP.png" alt="Montreal Street Parking website preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Website Design</span>
+                            <h3 class="project-title">Montreal Street Parking Website</h3>
+                            <p class="project-category">Map-based interface and open-data workflow</p>
+                        </div>
+                    </a>
                 </div>
-                </a>    
-            </div>
-            
-            <!-- Project 4 -->
-            <div class="project-card">
-                <a href="MagazinePopMusic.html">
-                <img src="PopMusic_M _Cover.png" alt="Project 4" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Pop Music Around the World </h3>
-                    <p class="project-category">Magazine(Print & Digital Media)</p>
+                <div class="project-card reveal">
+                    <a href="Banking App.html">
+                        <img src="Bank.png" alt="Banking app dashboard preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">UX Design</span>
+                            <h3 class="project-title">Banking App</h3>
+                            <p class="project-category">Dashboard, account, and transaction interface</p>
+                        </div>
+                    </a>
                 </div>
-                </a>    
-            </div>
-            
-            <!-- Project 5 -->
-            <div class="project-card">
-                <a href="motionV.html">
-                <img src="motionV_main.png" alt="Project 5" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Motion Video</h3>
-                    <p class="project-category">Motion Graphics Design</p>
+                <div class="project-card reveal">
+                    <a href="DesignBrain.html">
+                        <img src="DesigBrain_FrontPage.png" alt="DesignBrain dashboard preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">UX Design</span>
+                            <h3 class="project-title">Design Brain Website</h3>
+                            <p class="project-category">Dashboard, account, and transaction interface</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-            
-            <!-- Project 6 -->
-            <div class="project-card">
+                <div class="project-card reveal">
+                    <a href="AI Daily Journal Website.html">
+                        <img src="AIDaily_FrontPage.png" alt="AI Daily Journal Website dashboard preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">UX Design/ AI Design</span>
+                            <h3 class="project-title">AI Daily Journal Website</h3>
+                            <p class="project-category">Multimodal Learning Systems (Vision + Language + Speech)</p>
+                        </div>
+                    </a>
+                </div>
                 
-                <a href="Visual Language for Student Workflow & Stress.html">
-                <img src="Stress_Icon_main.png" alt="Project 6" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Visual Language for Student Workflow & Stress</h3>
-                    <p class="project-category">Iconic Symbols</p>
-                </div>
-                </a>
             </div>
+        </div>
 
-            <!-- Project 7 -->
-            <div class="project-card">
-                
-                <a href="3D Modeling Projects.html">
-                <img src="3D_begin_main.png" alt="Project 7" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">3D Modeling Projects</h3>
-                    <p class="project-category">3D Modeling</p>
-                </div>
-                </a>
+        <div class="project-category-section reveal">
+            <div class="category-heading">
+                <h3>Graphic Design</h3>
+                <p>Print, typography, motion, symbolic systems, and visual language experiments.</p>
             </div>
-
-            <!-- Project 8 -->
-            <div class="project-card">
-                
-                <a href="Mental Health Awareness.html">
-                <img src="Magazine Cover6  (5).jpg" alt="Project 8" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Mental Health Awareness</h3>
-                    <p class="project-category">Magazine Covers</p>
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <a href="ColourP.html">
+                        <img src="ColourP_main.png" alt="Color and Language project preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Graphic Design</span>
+                            <h3 class="project-title">Color &amp; Language</h3>
+                            <p class="project-category">Haiku, drawing, and visual interpretation</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-
-            <!-- Project 9 -->
-            <div class="project-card">
-                
-                <a href="Rhythm&Repetition .html">
-                <img src="Rhythm_Design (2).jpg" alt="Project 9" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Rhythm + Repetition</h3>
-                    <p class="project-category">Typography Study</p>
+                <div class="project-card reveal">
+                    <a href="MagazinePopMusic.html">
+                        <img src="PopMusic_M _Cover.png" alt="Pop Music Around the World magazine cover" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Print &amp; Digital</span>
+                            <h3 class="project-title">Pop Music Around the World</h3>
+                            <p class="project-category">Magazine design and editorial system</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-
-            <!-- Project 10 -->
-            <div class="project-card">
-                
-                <a href="3D Model_Surface Tensions.html">
-                <img src="Conceptual Model_Front.png" alt="Project 10" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">3D Model Surface Tensions</h3>
-                    <p class="project-category">3D Modeling</p>
+                <div class="project-card reveal">
+                    <a href="motionV.html">
+                        <img src="motionV_main.png" alt="Motion video project preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Motion Graphics</span>
+                            <h3 class="project-title">Motion Video</h3>
+                            <p class="project-category">Color studies and animated composition</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-
-            <!-- Project 11 -->
-            <div class="project-card">
-                <a href="3D Urban Loop.html">
-                <img src="3DUrbanLoop.png" alt="Project 11" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Urban Loop: A Cycle of Illusion</h3>
-                    <p class="project-category">3D Modeling</p>
+                <div class="project-card reveal">
+                    <a href="Visual Language for Student Workflow & Stress.html">
+                        <img src="Stress_Icon_main.png" alt="Student workflow and stress icon system preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Icon System</span>
+                            <h3 class="project-title">Visual Language for Student Workflow &amp; Stress</h3>
+                            <p class="project-category">Iconic symbols and student experience mapping</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-
-
-            <!-- Project 12 -->
-            <div class="project-card">
-                <a href="MakeAThing.html">
-                <img src="MAT-G1.png" alt="Project 12" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">The Doors</h3>
-                    <p class="project-category">Bitsy Game</p>
+                <div class="project-card reveal">
+                    <a href="Mental Health Awareness.html">
+                        <img src="Magazine Cover6  (5).jpg" alt="Mental Health Awareness magazine cover" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Magazine Covers</span>
+                            <h3 class="project-title">Mental Health Awareness</h3>
+                            <p class="project-category">Cover studies and campaign tone</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
-
-            <!-- Project 13 -->
-            <div class="project-card">
-                <a href="JungianDreamMachine.html">
-                <img src="JungianDreamMachine.png" alt="Project 13" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Jungian Dream Analysis Machine </h3>
-                    <p class="project-category">AI Project</p>
+                <div class="project-card reveal">
+                    <a href="Rhythm&Repetition .html">
+                        <img src="Rhythm_Design (2).jpg" alt="Rhythm and Repetition typography preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Typography</span>
+                            <h3 class="project-title">Rhythm + Repetition</h3>
+                            <p class="project-category">Typographic motion, structure, and pacing</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
             </div>
+        </div>
 
-            <!-- Project 14 -->
-            <div class="project-card">
-                <a href="Banking App.html">
-                <img src="Bank.png" alt="Project 14" class="project-img">
-                <div class="project-overlay">
-                    <h3 class="project-title">Banking App </h3>
-                    <p class="project-category">UX design</p>
+        <div class="project-category-section reveal">
+            <div class="category-heading">
+                <h3>3D Design</h3>
+                <p>Form, space, scale, and spatial illusion explored through modeling and conceptual studies.</p>
+            </div>
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <a href="3D Modeling Projects.html">
+                        <img src="3D_begin_main.png" alt="3D Modeling Projects preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">3D Design</span>
+                            <h3 class="project-title">3D Modeling Projects</h3>
+                            <p class="project-category">Everyday objects, architecture, and surface studies</p>
+                        </div>
+                    </a>
                 </div>
-                </a>
+                <div class="project-card reveal">
+                    <a href="3D Model_Surface Tensions.html">
+                        <img src="Conceptual Model_Front.png" alt="3D Model Surface Tensions preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">3D Design</span>
+                            <h3 class="project-title">3D Model Surface Tensions</h3>
+                            <p class="project-category">Conceptual and technical model development</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="3D Urban Loop.html">
+                        <img src="3DUrbanLoop.png" alt="Urban Loop 3D model preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">3D Design</span>
+                            <h3 class="project-title">Urban Loop: A Cycle of Illusion</h3>
+                            <p class="project-category">Urban spatial loop and visual illusion</p>
+                        </div>
+                    </a>
+                </div>
             </div>
+        </div>
 
-            
+        <div class="project-category-section reveal">
+            <div class="category-heading">
+                <h3>Game &amp; AI Design</h3>
+                <p>Interactive systems, creative coding, and AI-assisted experiences with process documentation.</p>
+            </div>
+            <div class="project-grid">
+                <div class="project-card reveal">
+                    <a href="MakeAThing.html">
+                        <img src="MAT-G1.png" alt="The Doors Bitsy game preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">The Doors</h3>
+                            <p class="project-category">Bitsy game, spatial choice, and exploration</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="JungianDreamMachine.html">
+                        <img src="JungianDreamMachine.png" alt="Jungian Dream Analysis Machine preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">AI Project</span>
+                            <h3 class="project-title">Jungian Dream Analysis Machine</h3>
+                            <p class="project-category">AI report, interpretation flow, and tool process</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section id="about" class="about reveal">
         <div class="about-img">
             <img src="AboutMe.jpeg" alt="Cheuk Ling Wong">
         </div>
@@ -690,8 +1200,8 @@
 
     <!-- Contact Section(new) -->
     <section id="contact" class="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-form">
+        <h2 class="section-title reveal">Get In Touch</h2>
+        <div class="contact-form reveal">
             <form id="contactForm">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -718,7 +1228,7 @@
                 </div>
             </form>
         </div>
-        <div class="contact-info">
+        <div class="contact-info reveal">
             <div class="contact-item">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -812,11 +1322,35 @@
             if (window.scrollY > 50) {
                 header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                header.style.padding = '0.75rem 5%';
             } else {
                 header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
                 header.style.boxShadow = 'none';
+                header.style.padding = '1rem 5%';
             }
         });
+
+        // Reveal content as it enters the viewport
+        const revealItems = document.querySelectorAll('.reveal');
+        revealItems.forEach((item, index) => {
+            if (item.classList.contains('project-card')) {
+                item.style.setProperty('--delay', `${(index % 6) * 0.06}s`);
+            }
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.16,
+            rootMargin: '0px 0px -8% 0px'
+        });
+
+        revealItems.forEach(item => revealObserver.observe(item));
     </script>
 
 <script>
