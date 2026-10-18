@@ -150,20 +150,7 @@
             z-index: 1;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            opacity: 0.35;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
-            background-size: 72px 72px;
-            transform: perspective(900px) rotateX(64deg) translateY(-18%);
-            transform-origin: top;
-            animation: gridDrift 14s linear infinite;
-        }
+
         
         .hero-content {
             position: relative;
@@ -585,63 +572,62 @@
         }
         
         /* About Section */
-        .about {
-            padding: 5rem 5%;
-            background-color: var(--light-color);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 2rem;
-        }
+        .about { padding: 6rem 5%; background: linear-gradient(135deg, #f4f7f8 0%, #fff 58%, #f8f4f1 100%); display: block; }
+        .about-layout { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(250px,.78fr) minmax(0,1.22fr); align-items: center; gap: clamp(2rem,5vw,5rem); }
+        .about-img { min-width: 0; position: relative; }
+        .about-img:before { content: ""; position: absolute; inset: 1rem -1rem -1rem 1rem; border: 1px solid rgba(11,111,145,.28); border-radius: 18px; }
+        .about-img img { position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 16px; box-shadow: 0 24px 55px rgba(31,36,40,.16); }
+        .about-content { min-width: 0; }
+        .about-kicker { margin-bottom: .7rem; color: var(--accent-color); font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+        .about-content h2 { margin: 0 0 1.2rem; font-size: clamp(2.2rem,4vw,3.4rem); }
+        .about-copy { max-width: 760px; color: var(--secondary-color); font-size: 1.05rem; line-height: 1.85; }
+        .about-copy p { margin: 0 0 1rem; }
+        .about-link { display: inline-flex; align-items: center; gap: .55rem; margin-top: .5rem; color: var(--accent-color); font-weight: 700; }
+        .about-link:hover { color: var(--accent-warm); }
+        .about-block-heading { margin: 0 0 .35rem; font-size: 1.7rem; }
+        .about-block-intro { margin: 0 0 1.25rem; color: var(--secondary-color); }
+        .about-skills { max-width: 1240px; margin: 3.5rem auto 0; }
+        .about-block-heading { margin: 0 0 .35rem; font-size: 1.7rem; }
+        .about-block-intro { margin: 0 0 1.2rem; color: var(--secondary-color); }
+        .skill-lines { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 3rem; }
+        .skill-line { padding: .85rem 0; border-bottom: 1px solid var(--line-color); }
+        .skill-line h4,.tool-group h4 { margin: 0 0 .25rem; font-family: 'Roboto',sans-serif; font-size: .98rem; }
+        .skill-line p { margin: 0; color: var(--secondary-color); font-size: .92rem; line-height: 1.65; }
+        .tools-section { max-width: 1240px; margin: 2.8rem auto 0; padding-top: 2rem; }
+        .tool-groups { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 2rem; }
+        .tool-list { display: flex; flex-wrap: wrap; gap: .45rem 1rem; }
+        .tool-item { display: inline-flex; align-items: center; gap: .5rem; min-height: 36px; color: var(--primary-color); font-size: .9rem; transition: color var(--transition-speed), transform var(--transition-speed); }
+        .tool-item:hover { color: var(--accent-color); transform: translateY(-2px); }
+        .tool-icon { width: 24px; height: 24px; object-fit: contain; }
+        @media(max-width:950px) { .tool-groups { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; } }
+        @media(max-width:700px) { .about { padding: 4rem 6%; } .about-layout { grid-template-columns: 1fr; gap: 2.5rem; } .about-img { width: min(100%,390px); margin: 0 auto; } .about-img:before { inset: .7rem -.7rem -.7rem .7rem; } .skill-lines,.tool-groups { grid-template-columns: 1fr; } .about-skills { margin-top: 2.8rem; } .tools-section { margin-top: 2rem; padding-top: 1.6rem; } }
         
-        .about-img {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-img img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .about-content {
-            flex: 2;
-            min-width: 300px;
-        }
-        
-        .about-content h2 {
-            margin-bottom: 1.5rem;
-        }
-        
-        .skills {
-            margin-top: 2rem;
-        }
-        
-        .skills h3 {
-            margin-bottom: 1rem;
-        }
-        
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .skill-tag {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: transform var(--transition-speed), background-color var(--transition-speed);
-        }
+        /* Experience timeline */
+        .experience-section { padding: 5rem 5%; background: #f5f6f7; }
+        .experience-intro { max-width: 720px; margin: 0 auto 3rem; text-align: center; color: var(--secondary-color); }
+        .experience-timeline { max-width: 1080px; margin: 0 auto; padding: 0; list-style: none; }
+        .experience-entry { display: grid; grid-template-columns: 78px 28px minmax(0, 1fr); gap: 1rem; position: relative; padding-bottom: 1.75rem; }
+        .experience-entry:last-child { padding-bottom: 0; }
+        .experience-year { justify-self: end; align-self: start; margin-top: 1.45rem; min-width: 60px; padding: .3rem .55rem; border-radius: 4px; background: #e6e9ec; color: var(--primary-color); text-align: center; font-weight: 700; }
+        .experience-track { position: relative; display: flex; justify-content: center; }
+        .experience-track:before { content: ""; position: absolute; top: 1.8rem; bottom: -.25rem; width: 2px; background: #d3d7da; }
+        .experience-entry:last-child .experience-track:before { display: none; }
+        .experience-dot { z-index: 1; margin-top: 1.55rem; width: 16px; height: 16px; border: 3px solid #fff; border-radius: 50%; background: var(--accent-warm); box-shadow: 0 0 0 4px rgba(208,109,72,.15), 0 0 16px rgba(208,109,72,.35); }
+        .experience-card { position: relative; padding: 1.25rem 4.5rem 1.25rem 1.5rem; border: 1px solid var(--line-color); border-radius: 10px; background: #fff; box-shadow: 0 10px 28px rgba(23,33,39,.06); transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
+        .experience-logo { position: absolute; top: 1.15rem; right: 1.2rem; display: grid; place-items: center; width: 42px; height: 42px; overflow: hidden; border: 1px solid #e7eaed; border-radius: 9px; background: #fff; color: #33424a; font-size: .68rem; font-weight: 800; letter-spacing: -.03em; }
+        .experience-logo img { display: block; width: 100%; height: 100%; padding: 4px; object-fit: contain; }
+        .experience-logo-fallback { display: grid; place-items: center; width: 100%; height: 100%; }
+        .experience-entry:hover .experience-card { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(23,33,39,.11); }
+        .experience-card h3 { margin: 0 0 .25rem; font-size: 1.25rem; color: var(--primary-color); }
+        .experience-employer { margin: 0 0 .15rem; color: var(--secondary-color); font-weight: 600; }
+        .experience-kind { margin: 0 0 .8rem; color: var(--secondary-color); font-size: .9rem; }
+        .experience-status { display: inline-block; margin-left: .4rem; padding: .15rem .5rem; border-radius: 99px; background: #edf6ef; color: #35724a; font-size: .76rem; font-weight: 700; vertical-align: middle; }
+        .experience-card ul { margin: .65rem 0 .9rem; padding-left: 1.2rem; color: var(--secondary-color); }
+        .experience-card li { margin: .35rem 0; }
+        .experience-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .8rem; }
+        .experience-tags span { padding: .3rem .65rem; border: 1px solid var(--line-color); border-radius: 99px; background: #fafbfc; color: var(--primary-color); font-size: .82rem; }
+        @media(max-width:650px) { .experience-entry { grid-template-columns: 54px 20px minmax(0,1fr); gap: .65rem; } .experience-year { min-width: 50px; padding: .25rem .35rem; font-size: .88rem; } .experience-card { padding: 1rem 3.6rem 1rem 1rem; } .experience-card h3 { font-size: 1.1rem; } .experience-logo { top: .8rem; right: .8rem; width: 34px; height: 34px; } }
 
-        .skill-tag:hover {
-            transform: translateY(-3px);
-            background-color: var(--accent-warm);
-        }
-        
         /* Contact Section */
         .contact {
             padding: 5rem 5%;
@@ -928,6 +914,7 @@
         <nav>
             <ul>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -941,8 +928,8 @@
 
     <!-- Hero Section -->
     <section class="hero" style="background-image: url('Front page background.jpeg');">
-        <div class="motion-mark left"></div>
-        <div class="motion-mark right"></div>
+        
+        
         <div class="hero-content">
             <h1 class="designer-title" aria-label="Hi, I'm Cheuk Ling Wong">
                 <span><span>Hi, I'm</span></span>
@@ -1010,17 +997,6 @@
                         </div>
                     </a>
                 </div>
-                <div class="project-card reveal">
-                    <a href="AI Daily Journal Website.html">
-                        <img src="AIDaily_FrontPage.png" alt="AI Daily Journal Website dashboard preview" class="project-img">
-                        <div class="project-overlay">
-                            <span class="project-badge">UX Design/ AI Design</span>
-                            <h3 class="project-title">AI Daily Journal Website</h3>
-                            <p class="project-category">Multimodal Learning Systems (Vision + Language + Speech)</p>
-                        </div>
-                    </a>
-                </div>
-                
             </div>
         </div>
 
@@ -1134,8 +1110,8 @@
 
         <div class="project-category-section reveal">
             <div class="category-heading">
-                <h3>Game &amp; AI Design</h3>
-                <p>Interactive systems, creative coding, and AI-assisted experiences with process documentation.</p>
+                <h3>Game Design</h3>
+                <p>Playable systems and prototypes shaped through mechanics, experimentation, and iteration.</p>
             </div>
             <div class="project-grid">
                 <div class="project-card reveal">
@@ -1149,12 +1125,90 @@
                     </a>
                 </div>
                 <div class="project-card reveal">
+                    <a href="GamePrototype.html">
+                        <img src="https://github.com/fayfaywcl/CART315/raw/main/Process/Media/Week2OwnGame.gif" alt="Squarebound first-person Unity game prototype with collectibles" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">Squarebound</h3>
+                            <p class="project-category">First-person movement, jumping, and collectible exploration</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="PawngPaint.html">
+                        <img src="https://github.com/fayfaywcl/CART315/raw/main/Process/Media/BallPaintGame.gif" alt="Pawng ball paint game prototype" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">Exploring Mechanics Through Pawng</h3>
+                            <p class="project-category">Ball-trail capture, territory scoring, and physics</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="LaserBall.html">
+                        <img src="https://github.com/fayfaywcl/CART315/raw/main/Process/Media/Week4LazerTag.gif" alt="Bouncing ball and scrolling laser tag gameplay preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">Bouncing Ball and Scrolling Lasers</h3>
+                            <p class="project-category">A size and risk-reward mechanics prototype</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="EchoesOfTheFallen.html">
+                        <img src="https://github.com/fayfaywcl/CART315/raw/main/Process/Media/Week11_donegameflow.gif" alt="Completed Echoes of the Fallen game flow with player guidance and controlled journal pacing" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">Echoes of the Fallen</h3>
+                            <p class="project-category">A narrative journey through a soldier’s memories, journal, and recovery</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="FamilyPhoto.html">
+                        <img src="https://github.com/fayfaywcl/CART315/raw/main/Process/Media/Week6FamilyGameResult.gif" alt="The Family Photo prototype result showing the captured image and result screen" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">The Family Photo</h3>
+                            <p class="project-category">A countdown party game about racing into the photo frame</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="SpringEnergy.html">
+                        <video class="project-img" autoplay muted loop playsinline aria-label="Springbound gameplay video preview"><source src="Springbound_game.mp4" type="video/mp4"></video>
+                        <div class="project-overlay">
+                            <span class="project-badge">Game Design</span>
+                            <h3 class="project-title">Springbound</h3>
+                            <p class="project-category">A physics game exploring mass and spring energy</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="project-category-section reveal">
+            <div class="category-heading">
+                <h3>AI Design</h3>
+                <p>AI-driven tools and experiences that explore how generative systems can interpret, organize, and communicate information.</p>
+            </div>
+            <div class="project-grid">
+                <div class="project-card reveal">
                     <a href="JungianDreamMachine.html">
                         <img src="JungianDreamMachine.png" alt="Jungian Dream Analysis Machine preview" class="project-img">
                         <div class="project-overlay">
                             <span class="project-badge">AI Project</span>
-                            <h3 class="project-title">Jungian Dream Analysis Machine</h3>
-                            <p class="project-category">AI report, interpretation flow, and tool process</p>
+                            <h3 class="project-title">JDAM – Jungian Dream Analysis Machine</h3>
+                            <p class="project-category">AI-assisted dream interpretation and image generation</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card reveal">
+                    <a href="AI Daily Journal Website.html">
+                        <img src="AIDaily_FrontPage.png" alt="AI Daily Journal Website dashboard preview" class="project-img">
+                        <div class="project-overlay">
+                            <span class="project-badge">AI Project</span>
+                            <h3 class="project-title">AI Daily Journal Website</h3>
+                            <p class="project-category">Multimodal narrated journals using vision, language, and speech</p>
                         </div>
                     </a>
                 </div>
@@ -1163,39 +1217,111 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about reveal">
-        <div class="about-img">
-            <img src="AboutMe.jpeg" alt="Cheuk Ling Wong">
-        </div>
-        <div class="about-content">
-            <h2>About Me</h2>
-            <p>I’m a Joint Major student in Computer Science and Computation Arts at Concordia University, where I explore the intersection of technology, design, and creative expression. </p>
-            <br>
-            <p>With experience in graphic design, digital media, and interactive systems, I’m passionate about creating thoughtful, user-centered experiences. Whether I’m building with code or designing for screen, I’m driven by curiosity to communicate ideas clearly and impactfully.</p>
-            <br>
-            <p>I'm especially interested in projects that combine visual design, creative coding, and digital interactivity, and I love working across disciplines to bring concepts to life.</p>
-            
-            <div class="skills">
-                <h3>My Skills</h3>
-                <div class="skill-tags" >
-                    <span class="skill-tag" >HTML</span>
-                    <span class="skill-tag">CSS</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">UI/UX Design</span>
-                    <span class="skill-tag">Adobe Photoshop</span>
-                    <span class="skill-tag">Adobe Illustrator</span>
-                    <span class="skill-tag">Adobe Premiere Pro</span>
-                    <span class="skill-tag">Firebase</span>
-                    <span class="skill-tag">Canva</span>
-                    <span class="skill-tag">Figma</span>
-                    <span class="skill-tag">Unity</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">C#</span>
-                    
+    <section id="about" class="about">
+        <div class="about-layout">
+            <div class="about-img reveal">
+                <img src="AboutMe.jpeg" alt="Cheuk Ling Wong">
+            </div>
+            <div class="about-content reveal">
+                <p class="about-kicker">About me</p>
+                <h2>Designing at the meeting point of code and creativity.</h2>
+                <div class="about-copy">
+                    <p>I’m a Joint Major student in Computer Science and Computation Arts at Concordia University. I’m interested in how technology can support expressive, clear, and engaging experiences.</p>
+                    <p>My work spans game development, UI/UX, AI-driven projects, and visual communication. I enjoy moving between the big idea and the details that make it work: shaping an interaction, building it in Unity or on the web, then refining it through feedback.</p>
+                    <p>Across collaborative projects, freelance design, and creative technology, I bring curiosity, care for the user experience, and a willingness to experiment.</p>
                 </div>
+                <a class="about-link" href="#contact">Let’s connect <span aria-hidden="true">↗</span></a>
             </div>
         </div>
+
+        <div class="about-skills reveal">
+            <h3 class="about-block-heading">Skills</h3>
+            <p class="about-block-intro">Areas I bring to a project, from early concept through implementation.</p>
+            <div class="skill-lines">
+                <article class="skill-line"><h4>UI/UX &amp; Interaction</h4><p>User interface design · User experience · Interaction design · Mobile web design</p></article>
+                <article class="skill-line"><h4>Game &amp; XR</h4><p>Game design · Unity development · Gameplay systems · XR experiences</p></article>
+                <article class="skill-line"><h4>Visual Communication</h4><p>Visual design · Storytelling · Video production · Data storytelling</p></article>
+                <article class="skill-line"><h4>Collaboration &amp; Delivery</h4><p>Project coordination · Event organization · Team collaboration · Iterative problem-solving</p></article>
+            </div>
+        </div>
+
+        <div class="tools-section reveal">
+            <h3 class="about-block-heading">Tools & Technologies</h3>
+            <p class="about-block-intro">Software and technologies I use to design, build, and communicate ideas.</p>
+            <div class="tool-groups">
+                <div class="tool-group"><h4>Design &amp; Media</h4><div class="tool-list">
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="" aria-hidden="true" loading="lazy">Figma</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="" aria-hidden="true" loading="lazy">Photoshop</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-plain.svg" alt="" aria-hidden="true" loading="lazy">Illustrator</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-original.svg" alt="" aria-hidden="true" loading="lazy">Premiere Pro</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" alt="" aria-hidden="true" loading="lazy">Canva</span>
+                </div></div>
+                <div class="tool-group"><h4>Game &amp; Programming</h4><div class="tool-list">
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg" alt="" aria-hidden="true" loading="lazy">Unity</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.simpleicons.org/meta" alt="" aria-hidden="true" loading="lazy">Meta</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="" aria-hidden="true" loading="lazy">C#</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.simpleicons.org/python" alt="" aria-hidden="true" loading="lazy">Python</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" alt="" aria-hidden="true" loading="lazy">Java</span>
+                </div></div>
+                <div class="tool-group"><h4>Web &amp; Data</h4><div class="tool-list">
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="" aria-hidden="true" loading="lazy">HTML</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="" aria-hidden="true" loading="lazy">CSS</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.simpleicons.org/javascript" alt="" aria-hidden="true" loading="lazy">JavaScript</span>
+                    <span class="tool-item"><img class="tool-icon" src="https://cdn.simpleicons.org/firebase" alt="" aria-hidden="true" loading="lazy">Firebase</span>
+                </div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section">
+        <h2 class="section-title reveal">Experience</h2>
+        <p class="experience-intro reveal">A timeline of my work across game development, immersive technology, design, and community projects.</p>
+        <ol class="experience-timeline">
+            <li class="experience-entry reveal">
+                <span class="experience-year">2026</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><span class="experience-logo" aria-label="Université de Montréal"><img src="https://www.google.com/s2/favicons?domain=umontreal.ca&amp;sz=128" alt="Université de Montréal logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="experience-logo-fallback" hidden>UdeM</span></span><h3>Unity Programmer / UI Designer</h3><p class="experience-employer">Université de Montréal</p><p class="experience-kind">Contract · Part-time <span class="experience-status">Present</span></p>
+                    <ul><li>Designed and implemented interfaces to improve player interaction across game projects.</li><li>Collaborated with a team to develop and refine features for project requirements.</li><li>Used Unity to create intuitive gameplay and a seamless player experience.</li></ul>
+                    <div class="experience-tags"><span>Unity</span><span>Game Design</span><span>UI Design</span><span>UX</span></div>
+                </article>
+            </li>
+            <li class="experience-entry reveal">
+                <span class="experience-year">2026</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><span class="experience-logo" aria-label="Readality"><img src="https://www.google.com/s2/favicons?domain=readality.com&amp;sz=128" alt="Readality logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="experience-logo-fallback" hidden>R</span></span><h3>Unity Developer</h3><p class="experience-employer">Readality</p><p class="experience-kind">Contract · Part-time <span class="experience-status">Present</span></p>
+                    <ul><li>Explored interactive features to enrich the reading environment.</li><li>Collaborated on XR experience development using Unity and built familiarity with immersive technology workflows.</li></ul>
+                    <div class="experience-tags"><span>Unity</span><span>Virtual Reality</span><span>XR Development</span><span>Interactive Reading</span></div>
+                </article>
+            </li>
+            <li class="experience-entry reveal">
+                <span class="experience-year">2026</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><h3>Freelance Web Designer</h3><p class="experience-employer">Freelance · Montréal, Canada</p><p class="experience-kind">Independent <span class="experience-status">Present</span></p>
+                    <ul><li>Designs web and mobile web experiences for freelance work.</li></ul>
+                    <div class="experience-tags"><span>Web Design</span><span>Mobile Web Design</span></div>
+                </article>
+            </li>
+            <li class="experience-entry reveal">
+                <span class="experience-year">2026</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><span class="experience-logo" aria-label="Concordia Game Development"><img src="https://www.google.com/s2/favicons?domain=concordiagamedev.ca&amp;sz=128" alt="Concordia Game Development logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="experience-logo-fallback" hidden>CGD</span></span><h3>Head of Events</h3><p class="experience-employer">Concordia Game Development</p><p class="experience-kind">Student organization <span class="experience-status">Present</span></p>
+                    <ul><li>Plans and coordinates events and activities to strengthen community involvement.</li><li>Manages event budgets, logistics, and schedules, working with members, sponsors, and vendors.</li></ul>
+                    <div class="experience-tags"><span>Event Organization</span><span>Event Planning</span><span>Coordination</span></div>
+                </article>
+            </li>
+            <li class="experience-entry reveal">
+                <span class="experience-year">2026</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><span class="experience-logo" aria-label="District 3 Innovation"><img src="https://www.google.com/s2/favicons?domain=district3.co&amp;sz=128" alt="District 3 Innovation logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="experience-logo-fallback" hidden>D3</span></span><h3>Alan Shepard Summer Residency · Business Consultancy</h3><p class="experience-employer">District 3 Innovation · Montréal, Canada</p><p class="experience-kind">Contract · Full-time · On-site</p>
+                    <p>Worked on real-world challenges with organizations and community partners through technology, design, and innovation.</p>
+                    <ul><li><strong>PixMob:</strong> Connected artistic experiences with quantitative insights through data storytelling, specifications, and website design.</li><li><strong>Geordie Theatre School:</strong> Developed impact-measurement insights to support organizational growth.</li><li><strong>Greybox:</strong> Designed an AI framework for robust, scalable AI-driven solutions.</li></ul>
+                    <div class="experience-tags"><span>Project Management</span><span>Storytelling</span><span>AI Frameworks</span><span>Design</span></div>
+                </article>
+            </li>
+            <li class="experience-entry reveal">
+                <span class="experience-year">2023</span><span class="experience-track"><span class="experience-dot"></span></span>
+                <article class="experience-card"><span class="experience-logo" aria-label="The Hong Kong Polytechnic University"><img src="https://www.google.com/s2/favicons?domain=polyu.edu.hk&amp;sz=128" alt="Hong Kong Polytechnic University logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="experience-logo-fallback" hidden>PolyU</span></span><h3>Student Assistant · Project Designer</h3><p class="experience-employer">The Hong Kong Polytechnic University</p><p class="experience-kind">Permanent · Part-time</p>
+                    <ul><li>Led the production of English teaching videos, from brainstorming and scripting through editing and narration.</li><li>Delegated tasks, coordinated communication between the professor and teammates, and helped keep projects on schedule.</li></ul>
+                    <div class="experience-tags"><span>Video Production</span><span>Project Design</span><span>Team Coordination</span><span>Scriptwriting</span></div>
+                </article>
+            </li>
+        </ol>
     </section>
 
     <!-- Contact Section(new) -->
